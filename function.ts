@@ -1,19 +1,14 @@
-3、typeScript中的函数
-
+/*3、typeScript中的函数
     3.1、函数的定义
     3.2、可选参数
     3.3、默认参数
     3.4、剩余参数
     3.5、函数重载
     3.6、箭头函数  es6
-
-
 */
 
 
 // 3.1、函数的定义
-
-
 //es5定义函数的方法
    /*
     //函数声明法
@@ -28,90 +23,55 @@
         }
    */
 
-
-
 //ts中定义函数的方法
-
-
  //函数声明法
         // function run():string{
 
         //     return 'run';
         // }
 
-
         //错误写法
         // function run():string{
-
         //     return 123;
         // }
 
 
-
-
-
-
 //匿名函数
 
-
     // var fun2=function():number{
-
     //     return 123;
     // }
 
-
     // alert(fun2()); /*调用方法*/
-
-
-
-
 
 //ts中定义方法传参
 
-
-
     /*
         function getInfo(name:string,age:number):string{
-
                 return `${name} --- ${age}`;
         }
 
-
         alert(getInfo('zhangsan',20));
-
     */
 
-
     // var getInfo=function(name:string,age:number):string{
-
     //     return `${name} --- ${age}`;
     // }
-       
     // alert(getInfo('zhangsan',40));
 
-
-
-
 //没有返回值的方法
-
         // function run():void{
 
         //     console.log('run')
         // }
         // run();
 
-
-
-
 // 3.2、方法可选参数 
 
         // es5里面方法的实参和行参可以不一样，但是ts中必须一样，如果不一样就需要配置可选参数 
 
-
-
        /*
         function getInfo(name:string,age?:number):string{
-
                 if(age){
 
                     return `${name} --- ${age}`;
@@ -119,8 +79,6 @@
 
                     return `${name} ---年龄保密`;
                 }
-
-
         }
 
         alert(getInfo('zhangsan'))
@@ -128,14 +86,11 @@
         alert(getInfo('zhangsan',123))
        */
 
-
-
     //注意:可选参数必须配置到参数的最后面
 
     //错误写法
       /*
        function getInfo(name?:string,age:number):string{
-
                 if(age){
 
                     return `${name} --- ${age}`;
@@ -143,51 +98,32 @@
 
                     return `${name} ---年龄保密`;
                 }
-               
-
         }
 
         alert(getInfo('zhangsan'))
       */
 
-
 // 3.3、默认参数 可选参数
-
-
         // es5里面没法设置默认参数，es6和ts中都可以设置默认参数
-
         /*
-
                 function getInfo(name:string,age:number=20):string{
-
                             if(age){
-
                                 return `${name} --- ${age}`;
                             }else{
-
                                 return `${name} ---年龄保密`;
                             }
-                        
-
                 }
 
                 // alert( getInfo('张三'));
                 alert( getInfo('张三',30));
         */
 
-
-
-
 // 3.4、剩余参数
-
-
-
             // function sum(a:number,b:number,c:number,d:number):number{
 
             //     return a+b+c+d;
 
             // }
-
 
             // alert(sum(1,2,3,4)) ;
 
@@ -212,9 +148,6 @@
 
             alert(sum(1,2,3,4,5,6)) ;
         */
-
-
-
 
     /*
 
@@ -308,15 +241,9 @@
                 // alert(getInfo('zhangsan',20));
 
 
-
-
 // 3.6、箭头函数  es6  
 
-
 //this指向的问题    箭头函数里面的this指向上下文
-
-
-            
 
         // setTimeout(function(){
 

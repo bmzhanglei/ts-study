@@ -1,9 +1,7 @@
 // 5.1 属性类接口
 //  对json的约束
 function printLabel(labelInfo: { label: string }): void {
-
     console.log('printLabel');
-
 }
 
 printLabel('hahah'); //错误写法
@@ -147,7 +145,7 @@ var sha1: encrypt = function (key: string, value: string): string {
 console.log(sha1('name', 'lisi'));
 
 // 5.3 可索引接口
-可索引接口：数组、对象的约束  （不常用）
+// 可索引接口：数组、对象的约束  （不常用）
 
 //可索引接口 对数组的约束
 

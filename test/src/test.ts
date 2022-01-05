@@ -1,3 +1,4 @@
+import { type } from "os";
 
 
 type A = Awaited<Promise<string>>;
@@ -10,3 +11,6 @@ type A = Awaited<Promise<string>>;
 //    let a:A = await promise()
 //    console.log(a)
 // })()
+var a:string = 'tttt'
+// type B = Awaited<Promise>
+console.log(a)

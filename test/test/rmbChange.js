@@ -15,50 +15,55 @@
 
 // 输出描述：
 // 输出人民币格式
-let unit = ['亿', '万', '仟', '佰', '拾', '元', '角', '分']
-// let unitMin = ['仟', '佰', '拾', '']
-let unitMin = ['', '拾', '佰', '仟']
-let unitMax = ['', '万', '亿', '万亿']
-let arr = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
+let num = "76503409010.10"
+// let num = "1010.00"
+// let num = "6007.14"
 
-let num = 76503400001.15
+const unit = ['元', '整', '角', '分'];
+const unitMin = ['', '拾', '佰', '仟'],unitMax = ['', '万', '亿', '万亿'];
+const arr = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 
-let [integer, decimal] = num.toString().split('.');
-
-let len = Math.ceil(integer.length / 4)
-
-let arrInt = []
+let [integer, decimal] = num.split('.');
+let len = Math.ceil(integer.length / 4);
+let val = "人民币：",arrInt = [];//每四个一组，从后向前截取 
 for (let i = 1; i <= len; i++) {
     if (i == 1) {
-        arrInt.push(integer.slice(-i * 4))
+        arrInt.push(integer.slice(-i * 4));
     } else {
-        arrInt.push(integer.slice(-i * 4, (-i + 1) * 4))
+        arrInt.push(integer.slice(-i * 4, (-i + 1) * 4));
     }
 }
-
-let val = ""
-
 for (let i = len - 1; i >= 0; i--) {
-    let w = read(arrInt[i])
+    let w = readFour(arrInt[i]);
     if (w) {
-        val += w + unitMax[i]
+        val += w + unitMax[i];
     }
 }
+val += unit[0]
 
+//小数位读取
+if (decimal == "00") {
+    val += unit[1]
+} else {
+    val += arr[decimal[0]] + (decimal[0] > 0 ? unit[2] : '')
+    if (decimal[1] > 0) {
+        val += arr[decimal[1]] + unit[3]
+    }
+}
+//最终读取结果
 console.log(val)
 
-function read(item) {
-    let r = ''
-    let len = item.length
+//每四位读取
+function readFour(item) {
+    let r = '',len = item.length;
     for (let i = len - 1, j = 0; i >= 0; i--, j++) {
-        let n = arr[item[j]] + (item[j] > 0 ? unitMin[i] : '')
-        let prev = r.slice(-1)
+        //对壹拾去壹，并去掉重复的零       
+        let n = ((i == 1 && item[j] == 1) ? "" : arr[item[j]]) + (item[j] > 0 ? unitMin[i] : '');
+        let prev = r.slice(-1);
         if (!(prev == arr[0] && n == arr[0])) {
             r += n
         }
     }
-    r = r.replace(/['零']$/, "")
+    r = r.replace(/['零']$/, "");
     return r
 }
-
-// console.log(w)

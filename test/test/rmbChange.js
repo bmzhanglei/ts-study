@@ -20,18 +20,16 @@ let num = "76503409010.10"
 // let num = "6007.14"
 
 const unit = ['元', '整', '角', '分'];
-const unitMin = ['', '拾', '佰', '仟'],unitMax = ['', '万', '亿', '万亿'];
+const unitMin = ['', '拾', '佰', '仟'], unitMax = ['', '万', '亿', '万亿'];
 const arr = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 
 let [integer, decimal] = num.split('.');
 let len = Math.ceil(integer.length / 4);
-let val = "人民币：",arrInt = [];//每四个一组，从后向前截取 
+let val = "人民币：", arrInt = [];//每四个一组，从后向前截取 
+
 for (let i = 1; i <= len; i++) {
-    if (i == 1) {
-        arrInt.push(integer.slice(-i * 4));
-    } else {
-        arrInt.push(integer.slice(-i * 4, (-i + 1) * 4));
-    }
+    const startEnd = i == 1 ? [-i * 4] : [-i * 4, (-i + 1) * 4]
+    arrInt.push(integer.slice(...startEnd));
 }
 for (let i = len - 1; i >= 0; i--) {
     let w = readFour(arrInt[i]);
@@ -55,7 +53,7 @@ console.log(val)
 
 //每四位读取
 function readFour(item) {
-    let r = '',len = item.length;
+    let r = '', len = item.length;
     for (let i = len - 1, j = 0; i >= 0; i--, j++) {
         //对壹拾去壹，并去掉重复的零       
         let n = ((i == 1 && item[j] == 1) ? "" : arr[item[j]]) + (item[j] > 0 ? unitMin[i] : '');

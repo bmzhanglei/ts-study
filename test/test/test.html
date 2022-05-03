@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+async function* fetchCommits(repo) {
+  let url = `https://api.github.com/repos/${repo}/commits`;
+
+  while (url) {
+      console.log(url)
+      const response = await fetch(url, { // (1)
+        headers: {'User-Agent': 'Our script'}, // github needs any user-agent header
+    });
+    
+    const body = await response.json(); // (2) response is JSON (array of commits)
+    console.log(body)
+    console.log(response.headers.get('Link'))
+    
+    // (3) the URL of the next page is in the headers, extract it
+    let nextPage = response.headers.get('Link').match(/<(.*?)>; rel="next"/);
+    nextPage = nextPage?.[1];
+
+    url = nextPage;
+
+    for(let commit of body) { // (4) yield commits one by one, until the page ends
+      yield commit;
+    }
+  }
+}
+
+(async () => {
+
+  let count = 0;
+
+  for await (const commit of fetchCommits('javascript-tutorial/en.javascript.info')) {
+
+    console.log(commit.author.login);
+
+    if (++count == 100) { // let's stop at 100 commits
+      break;
+    }
+  }
+
+})();
+    </script>
+</body>
+</html>

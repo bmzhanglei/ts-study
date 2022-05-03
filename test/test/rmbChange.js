@@ -15,9 +15,10 @@
 
 // 输出描述：
 // 输出人民币格式
-let num = "76503409010.10"
+// let num = "76503409010.10"
 // let num = "1010.00"
 // let num = "6007.14"
+let num = "5.07"
 
 const unit = ['元', '整', '角', '分'];
 const unitMin = ['', '拾', '佰', '仟'], unitMax = ['', '万', '亿', '万亿'];
@@ -25,7 +26,7 @@ const arr = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖
 
 let [integer, decimal] = num.split('.');
 let len = Math.ceil(integer.length / 4);
-let val = "人民币：", arrInt = [];//每四个一组，从后向前截取 
+let val = "人民币", arrInt = [];//每四个一组，从后向前截取 
 
 for (let i = 1; i <= len; i++) {
     const startEnd = i == 1 ? [-i * 4] : [-i * 4, (-i + 1) * 4]
@@ -37,13 +38,16 @@ for (let i = len - 1; i >= 0; i--) {
         val += w + unitMax[i];
     }
 }
-val += unit[0]
+
+if(val.toString().length>3){
+    val += unit[0]
+}
 
 //小数位读取
 if (decimal == "00") {
     val += unit[1]
 } else {
-    val += arr[decimal[0]] + (decimal[0] > 0 ? unit[2] : '')
+    val += (decimal[0] > 0?arr[decimal[0]]:"") + (decimal[0] > 0 ? unit[2] : '')
     if (decimal[1] > 0) {
         val += arr[decimal[1]] + unit[3]
     }
